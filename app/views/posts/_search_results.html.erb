@@ -1,0 +1,24 @@
+<table  cellpadding="0" border="1" cellspacing="0" width= "50%" >
+  <%if !@search_results.blank? %>
+    <tr>
+      <th width="20%">Id</th>
+      <th wdth="20%">Title</th>
+      <th class="last" width="20%" align="left">Actions</th>
+    </tr>
+  <%end%>
+
+  <%if !@posts%>
+    <% for post in @search_results%>
+    <tr>
+        <td width="20%"><%= post.id %></td>
+        <td width="20%" ><%= link_to post.title, edit_post_path(post) %></td>
+        <td align="center" nowrap width="10%">
+          <%= link_to image_tag("edit.png",:size => "26x10", :border=>0),edit_post_path(post)  %>
+        </td>
+      </tr>
+    <%end%>
+  <%end%>
+
+
+
+</table>

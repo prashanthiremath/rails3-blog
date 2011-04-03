@@ -1,0 +1,36 @@
+<h1>Blog Application</h1>
+
+<%= form_tag search_posts_path, :method => 'get', :remote => true do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= search_field_tag :search, params[:search]%>
+  <%= submit_tag "search", :name => nil %>
+<%end%>
+
+<%= set_focus_to_id 'search' %>
+<% content_for :search_javascript do %>
+  function respondToChange() {
+
+  var pars = 'search=' + $('search').getValue()
+
+  new Ajax.Request("<%= search_posts_path %>" ,{
+  method: 'get',
+  parameters: pars
+  });
+  };
+
+  document.observe("dom:loaded", function() {
+  new Form.Element.Observer(
+  'search',
+  2,
+  respondToChange
+
+  )
+  });
+
+<% end %>
+  <br></br>
+<div id = "search_results">
+  <%=render :partial => 'search_results'%>
+</div>
+<br />
+<%= link_to 'New Blog', new_post_path %>

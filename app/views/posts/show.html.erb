@@ -1,0 +1,30 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post.name %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @post.body %>
+</p>
+  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+  <%= link_to tag, tag_path(:id => tag.name) , :class => css_class %>
+  <% end %>
+
+<h2>Comments</h2>
+<%= render :partial => "comments/comment",
+           :collection => @post.comments %>
+<h2>Add a comment:</h2>
+<%= render "comments/form" %>
+
+<br />
+
+<%= link_to 'Edit Post', edit_post_path(@post) %> |
+<%= link_to 'Back to Posts', posts_path %> |
